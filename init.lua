@@ -7,6 +7,7 @@
 
 -- These are "imports" much like the #include in C/C++
 require("config.lazy")
+require("mason").setup()
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
@@ -54,7 +55,8 @@ op.hlsearch = false
 
 -- Wraps lines that exceed the window width so text is always visible
 op.wrap = true 
-
+op.linebreak = true
+op.textwidth = 0
 -- Makes sure indented lines keep their indentation when wrapping
 op.breakindent = true 
 	-- This is a line that will wrap and has some indentation so as you can see with the previous option enabled, the wrapped line still begin with two tabs
@@ -127,7 +129,31 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' 
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- Mapping nvim tree binds
-key('n', '<leader>ft', '<cmd>NvimTreeToggle<cr>', { desc = 'Open NvimTree' })
+key('n', '<leader>t', '<cmd>NvimTreeToggle<cr>', { desc = 'Open NvimTree' })
+
+
+--  See `:help wincmd` for a list of all window commands
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+
+-- The following keymaps change the default functionality of j and k for navigating wrapped lines. Now, unless a number(v:count) is specified, j and k will really be gj and gk. This allows for more sensible navigation of wrapped lines (such as this one!)
+vim.keymap.set("n", "j", function()
+  return vim.v.count > 0 and "j" or "gj"
+end, { expr = true })
+
+vim.keymap.set("n", "k", function()
+  return vim.v.count > 0 and "k" or "gk"
+end, { expr = true })
+
+
+-- The following keybinds are related to navigating tabs in nvim
+key('n', '<leader>ee', '<cmd>tabnew<cr>', { desc = 'Open new tab' })
+key('n', '<leader>er', '<cmd>tabn<cr>', { desc = 'Navigate to next tab' })
+key('n', '<leader>ew', '<cmd>tabp<cr>', { desc = 'Navigate to previous tab' })
+key('n', '<leader>ed', '<cmd>tabc<cr>', { desc = 'Close the current tab' })
+
 
 require('lualine').setup({
 	options = {
@@ -138,3 +164,12 @@ require('lualine').setup({
 })
 
 
+
+function ColorMyPencils(color)
+  color = color or "monokai-pro"
+  vim.cmd.colorscheme(color)
+  vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
+  vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
+end
+
+ColorMyPencils()
