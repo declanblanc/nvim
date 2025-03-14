@@ -43,4 +43,11 @@ return {
   config = function()
     require "plugins.configs.cmp"
   end,},
+  {
+  "m4xshen/autoclose.nvim",
+  event = "InsertEnter", -- optional lazy load on InsertEnter
+  config = function()
+    require("autoclose").setup()
+  end,
+}
 }

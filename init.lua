@@ -35,49 +35,49 @@ require("nvim-tree").setup({
 })
 
 -- Creates "op" as an abbreviation for typing 'vim.opt' 
-op = vim.opt
+Op = vim.opt
 
 
-op.termguicolors = true
+Op.termguicolors = true
 -- Enables line numbers in "the gutter" (the left of the window)
-op.number = true
+Op.number = true
 -- Changes number display to show line numbers relative to cursor line
-op.relativenumber = true
+Op.relativenumber = true
 
 -- Enables the mouse for all modes ('a' is all modes)
-op.mouse = 'a'
+Op.mouse = 'a'
 
 -- Ignores capitalization when using the search function.
-op.ignorecase = true
+Op.ignorecase = true
 
 -- Disables "highlight search" for the last searched word.
-op.hlsearch = false 
+Op.hlsearch = false
 
 -- Wraps lines that exceed the window width so text is always visible
-op.wrap = true 
-op.linebreak = true
-op.textwidth = 0
+Op.wrap = true
+Op.linebreak = true
+Op.textwidth = 0
 -- Makes sure indented lines keep their indentation when wrapping
-op.breakindent = true 
+Op.breakindent = true
 	-- This is a line that will wrap and has some indentation so as you can see with the previous option enabled, the wrapped line still begin with two tabs
 
--- Modified the size a tap character occupies on the screen. The default value is 8.
-op.tabstop = 2
--- Similar to the previous option, this will change the amount of characters nvim will use to indent a line (using << and >>). Should be the same as tabstop.
-op.shiftwidth = 2
+-- Modified the size a tab character occupies on the screen. The default value is 8.
+Op.tabstop = 4
+-- Similar to the previous option, this will change the amount of characters nvim will use to indent a line (using << and >>). Should be the same as tabstOp.
+Op.shiftwidth = 4
 
 -- This option decides if nvim should transform a `Tab` into multiple spaces. Default is false but also setting it here for some reason.
-op.expandtab = false
+Op.expandtab = false
 
 -- This option should ensure a minimum number of lines above and below the cursor when navigating a file
-op.scrolloff = 20 
+Op.scrolloff = 20
 
 
 
 
 -- Moving on from options to keybindings
 -- my own shortcut for this setting
-key = vim.keymap.set
+Key = vim.keymap.set
 
 -- What are the parameters for this module?
 -- key({mode}, {lhs}, {rhs}, {opts})
@@ -103,23 +103,23 @@ vim.g.mapleader = ' '
 -- This changes what key is selected when we type <leader> for our bindings. I've set it to space
 
 -- This allows us to save a file with the sequence "Space + w"
-key('n', '<leader>w', '<cmd>write<cr>', {desc = 'Save'})
+Key('n', '<leader>w', '<cmd>write<cr>', {desc = 'Save'})
 
 -- Straying from the tutorial a bit to find a way to center my cursor on the screen. ChatGPT to the rescue??
 -- This seems to work for now. but is a bit jank and doesn't work in insert mode. So jumping from insert to normal can be jarring
 -- TODO: Improve this
 
 -- This remap sets the sequence 'gy' to copy to system clipboard
-key({'n', 'x'}, 'gy', '"+y', {desc = 'System Copy'})
+Key({'n', 'x'}, 'gy', '"+y', {desc = 'System Copy'})
 -- This remap sets the sequence 'gp' to paste from system clipboard
-key({'n', 'x'}, 'gp', '"+p', {desc = 'System Paste'})
+Key({'n', 'x'}, 'gp', '"+p', {desc = 'System Paste'})
 
 -- Typically when deleting in vim, this will modify the clipboard register, the following binds set x and X to delete a character or act as d respectively just without modifying the registers.
-key({'n', 'x'}, 'x', '"_x', {desc = 'Del char without yank'})
-key({'n', 'x'}, 'X', '"_d', {desc = 'Del without yank'})
+Key({'n', 'x'}, 'x', '"_x', {desc = 'Del char without yank'})
+Key({'n', 'x'}, 'X', '"_d', {desc = 'Del without yank'})
 
 -- This shortcut (space + a), will select all text in current buffer
-key('n', '<leader>a', ':keepjumps normal! ggVG<cr>')
+Key('n', '<leader>a', ':keepjumps normal! ggVG<cr>')
 
 -- The following shortcuts allow quick access to telescope features
 local builtin = require('telescope.builtin')
@@ -129,7 +129,7 @@ vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' 
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
 -- Mapping nvim tree binds
-key('n', '<leader>t', '<cmd>NvimTreeToggle<cr>', { desc = 'Open NvimTree' })
+Key('n', '<leader>t', '<cmd>NvimTreeToggle<cr>', { desc = 'Open NvimTree' })
 
 
 --  See `:help wincmd` for a list of all window commands
@@ -149,10 +149,10 @@ end, { expr = true })
 
 
 -- The following keybinds are related to navigating tabs in nvim
-key('n', '<leader>ee', '<cmd>tabnew<cr>', { desc = 'Open new tab' })
-key('n', '<leader>er', '<cmd>tabn<cr>', { desc = 'Navigate to next tab' })
-key('n', '<leader>ew', '<cmd>tabp<cr>', { desc = 'Navigate to previous tab' })
-key('n', '<leader>ed', '<cmd>tabc<cr>', { desc = 'Close the current tab' })
+Key('n', '<leader>ee', '<cmd>tabnew<cr>', { desc = 'Open new tab' })
+Key('n', '<leader>er', '<cmd>tabn<cr>', { desc = 'Navigate to next tab' })
+Key('n', '<leader>ew', '<cmd>tabp<cr>', { desc = 'Navigate to previous tab' })
+Key('n', '<leader>ed', '<cmd>tabc<cr>', { desc = 'Close the current tab' })
 
 
 require('lualine').setup({
